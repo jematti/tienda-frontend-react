@@ -1,0 +1,22 @@
+services:
+
+  # ── React Frontend ────────────────────────
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: react_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    networks:
+      - frontend-network
+
+networks:
+  frontend-network:
+    driver: bridge
